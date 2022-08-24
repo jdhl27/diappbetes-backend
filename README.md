@@ -6,6 +6,9 @@ Este es el backend para una aplicacion web que realiza el control y seguimiento 
   <img alt="Version" src="https://img.shields.io/badge/version-0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
+## Frontend
+https://github.com/jdhl27/diappbetes
+
 ## Jira
 Se utilizó la platafroma [Jira](https://equipo2703.atlassian.net/jira/software/projects/DIAPP/boards/1) para registrar las tareas de los integrantes para el desarrolo de la app
 
