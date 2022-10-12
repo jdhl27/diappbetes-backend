@@ -4,8 +4,8 @@
   "description": "<h1 align=\"center\">Bienvenid@ al backend de Diappbetes 👋</h1>",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "cd src && node index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
