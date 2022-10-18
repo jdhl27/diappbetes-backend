@@ -8,7 +8,7 @@ api.get("/", function (req, res) {
 });
 
 api.post("/signup", userControl.signUp);
-api.post("/signIn", userControl.signIn);
+api.post("/signin", userControl.signIn);
 
 api.get("/users", auth.isAuth, function (req, res) {
   res.status(200).send({ message: "Lista de usuarios con acceso" });

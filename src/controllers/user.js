@@ -5,6 +5,7 @@ function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
+    password: req.body.password,
   });
 
   user.save((err) => {
@@ -15,17 +16,28 @@ function signUp(req, res) {
 }
 
 function signIn(req, res) {
-  User.find({ email: req.body.email }, (err, user) => {
-    if (err) return res.status(500).send({ message: err });
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (err) return res.status(500).send({ message: `Error al ingresar: ${err}` });
+    if (!user)
+      return res
+        .status(404)
+        .send({ message: `No existe el usuario: ${req.body.email}` });
 
-    if (!user) return res.status(404).send({ message: "No existe el usuario" });
+    return user.comparePassword(req.body.password, (err, isMatch) => {
+      if (err)
+        return res.status(500).send({ message: `Error al ingresar: ${err}` });
+      if (!isMatch)
+        return res
+          .status(404)
+          .send({ message: `Error de contraseña: ${req.body.email}` });
 
-    req.user = user;
-    res.status(200).send({
-      message: "Te has logueado correctamente",
-      token: service.createToken(user),
+      req.user = user;
+      return res.status(200).send({
+        message: "Te has logueado correctamente",
+        token: service.createToken(user),
+      });
     });
-  });
+  }).select("_id email +password");
 }
 
 module.exports = {
