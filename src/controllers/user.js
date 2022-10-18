@@ -43,7 +43,28 @@ function signIn(req, res) {
   }).select("_id email +password");
 }
 
+function userInfo(req, res) {
+  if (!req.headers.authorization) {
+    return res.status(403).send({ message: "No tienes autorizacion" });
+  }
+
+  const token = req.headers.authorization.split(" ")[1];
+  service
+    .decodeToken(token)
+    .then((response) => {
+      User.findById(response).then((user) => {
+        return res.status(200).send({ user: user });
+      }).catch((err) => {
+        return res.status(500).send({ message: `Error al ingresar: ${err}` });
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send({ message: `Error al ingresar: ${err}` });
+    });
+}
+
 module.exports = {
   signUp,
   signIn,
+  userInfo,
 };
