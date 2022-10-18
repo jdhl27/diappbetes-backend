@@ -14,6 +14,8 @@ api.get("/users", auth.isAuth, function (req, res) {
   res.status(200).send({ message: "Lista de usuarios con acceso" });
 });
 
+api.get("/user", auth.isAuth, userControl.userInfo);
+
 // app.get("/hola/:name", function (req, res) {
 //   res.send({ message: `Hello ${req.params.name}` });
 // });
