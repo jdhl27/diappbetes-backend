@@ -5,6 +5,7 @@ function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
+    phone: req.body.phone,
     password: req.body.password,
   });
 
