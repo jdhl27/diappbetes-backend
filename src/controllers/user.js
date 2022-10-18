@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const User = require("../models/user");
 const service = require("../services");
 
@@ -9,7 +8,7 @@ function signUp(req, res) {
   });
 
   user.save((err) => {
-    if (err) res.status(500).send({ message: `Error al crear el usuario` });
+    if (err) return res.status(500).send({ message: `Error al crear el usuario ${err}` });
 
     return res.status(200).send({ token: service.createToken(user) });
   });
