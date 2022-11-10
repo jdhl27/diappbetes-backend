@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   password: { type: String, select: false },
   signupDate: { type: Date, default: Date.now() },
   lastLogin: Date,
+  isMedical: Boolean
 });
 
 UserSchema.pre("save", function (next) {

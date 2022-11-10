@@ -7,6 +7,7 @@ function signUp(req, res) {
     displayName: req.body.displayName,
     phone: req.body.phone,
     password: req.body.password,
+    isMedical: req.body.isMedical,
   });
 
   user.avatar = user.gravatar();
@@ -38,11 +39,20 @@ function signIn(req, res) {
           .status(404)
           .send({ message: `Error de contraseña: ${req.body.email}` });
 
+      console.log(user);
       req.user = user;
-      return res.status(200).send({
-        message: "Te has logueado correctamente",
-        token: service.createToken(user),
+
+      User.findById(user._id).then((userInfo) => {
+        return res.status(200).send({
+          message: "Te has logueado correctamente",
+          token: service.createToken(user),
+          user: userInfo
+        });
+      }).catch((err) => {
+        return res.status(500).send({ message: `Error al ingresar: ${err}` });
       });
+
+      
     });
   }).select("_id email +password");
 }
