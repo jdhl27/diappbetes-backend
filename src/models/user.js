@@ -6,6 +6,8 @@ const crypto = require("crypto");
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   displayName: String,
+  firstName: String,
+  lastName: String,
   phone: String,
   avatar: String,
   password: { type: String, select: false },

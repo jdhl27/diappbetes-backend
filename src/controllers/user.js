@@ -5,6 +5,8 @@ function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     phone: req.body.phone,
     password: req.body.password,
     isMedical: req.body.isMedical,
