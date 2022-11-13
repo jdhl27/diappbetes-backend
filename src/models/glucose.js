@@ -6,7 +6,7 @@ const GlucoseSchema = new Schema({
   message: String,
   signupDate: { type: Date, default: Date.now() },
   priority: Number,
-  cedula_paciente: String
+  id_paciente: String
 });
 
 module.exports = mongoose.model("Glucose", GlucoseSchema);
