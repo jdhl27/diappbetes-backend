@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middlewares/auth");
 const userControl = require("../controllers/user");
 const glucoseControl = require("../controllers/glucose");
+const observationControl = require("../controllers/observations");
 const api = express.Router();
 
 api.get("/", function (req, res) {
@@ -11,15 +12,14 @@ api.get("/", function (req, res) {
 // User
 api.post("/signup", userControl.signUp);
 api.post("/signin", userControl.signIn);
-
-api.get("/users", auth.isAuth, function (req, res) {
-  res.status(200).send({ message: "Lista de usuarios con acceso" });
-});
-
 api.get("/user", auth.isAuth, userControl.userInfo);
 
 // Glucose
-api.post("/glucose", glucoseControl.createRegisterGlucose);
-api.get("/glucose", glucoseControl.getAllRegisterGlucose);
+api.post("/glucose", auth.isAuth, glucoseControl.createRegisterGlucose);
+api.get("/glucose", auth.isAuth, glucoseControl.getAllRegisterGlucose);
+
+// Glucose
+api.post("/observation", auth.isAuth, observationControl.createObervation);
+api.get("/observation", auth.isAuth, observationControl.getAllObservation);
 
 module.exports = api;
