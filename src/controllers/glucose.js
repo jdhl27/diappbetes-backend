@@ -1,6 +1,5 @@
 const { priority } = require("../middlewares/glucosePriority");
 const Glucose = require("../models/glucose");
-const service = require("../services");
 
 function createRegisterGlucose(req, res) {
   if (!req.headers.authorization) {
@@ -10,7 +9,6 @@ function createRegisterGlucose(req, res) {
   const glucose = new Glucose({
     nivel: req.body.nivel,
     message: req.body.message,
-    signupDate: req.body.signupDate,
     priority: priority(req.body.nivel),
     id_paciente: req.body.id_paciente,
   });
@@ -30,13 +28,21 @@ function getAllRegisterGlucose(req, res) {
     return res.status(403).send({ message: "No tienes autorizacion" });
   }
 
-  Glucose.find()
-    .then((registers) => {
-      return res.status(200).send(registers);
-    })
-    .catch((err) => {
-      return res.status(500).send({ message: `Error al ingresar: ${err}` });
-    });
+  if (
+    req.query &&
+    req.query.id_paciente &&
+    Object.keys(req.query.id_paciente).length > 0
+  ) {
+    Glucose.find({ id_paciente: req.query.id_paciente })
+      .then((registers) => {
+        return res.status(200).send(registers);
+      })
+      .catch((err) => {
+        return res.status(500).send({ message: `Error al ingresar: ${err}` });
+      });
+  } else {
+    res.status(400).send({ message: `Falta el parametro id_paciente` });
+  }
 }
 
 module.exports = {
