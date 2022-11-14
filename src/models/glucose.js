@@ -5,7 +5,7 @@ const GlucoseSchema = new Schema({
   nivel: Number,
   message: String,
   signupDate: { type: Date, default: Date.now() },
-  priority: Number,
+  priority: String,
   id_paciente: String
 });
 

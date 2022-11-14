@@ -10,6 +10,7 @@ function signUp(req, res) {
     phone: req.body.phone,
     password: req.body.password,
     isMedical: req.body.isMedical,
+    id_medico: req.body.isMedical ? null : req.body.id_medico
   });
 
   user.avatar = user.gravatar();

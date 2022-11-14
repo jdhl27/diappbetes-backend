@@ -1,7 +1,7 @@
 const express = require("express");
 const auth = require("../middlewares/auth");
-const userControl = require('../controllers/user')
-const glucoseControl = require('../controllers/glucose')
+const userControl = require("../controllers/user");
+const glucoseControl = require("../controllers/glucose");
 const api = express.Router();
 
 api.get("/", function (req, res) {
@@ -20,5 +20,6 @@ api.get("/user", auth.isAuth, userControl.userInfo);
 
 // Glucose
 api.post("/glucose", glucoseControl.createRegisterGlucose);
+api.get("/glucose", glucoseControl.getAllRegisterGlucose);
 
 module.exports = api;
