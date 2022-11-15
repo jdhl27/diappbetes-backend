@@ -3,7 +3,7 @@ const Glucose = require("../models/glucose");
 
 function createRegisterGlucose(req, res) {
   if (!req.headers.authorization) {
-    return res.status(403).send({ message: "No tienes autorizacion" });
+    return res.status(403).json({ message: "No tienes autorizacion" });
   }
 
   const glucose = new Glucose({
@@ -17,15 +17,15 @@ function createRegisterGlucose(req, res) {
     if (err)
       return res
         .status(500)
-        .send({ message: `Error al crear el usuario ${err}` });
+        .json({ message: `Error al crear el usuario ${err}` });
 
-    return res.status(200).send({ message: gluc });
+    return res.status(200).json({ message: gluc });
   });
 }
 
 function getAllRegisterGlucose(req, res) {
   if (!req.headers.authorization) {
-    return res.status(403).send({ message: "No tienes autorizacion" });
+    return res.status(403).json({ message: "No tienes autorizacion" });
   }
 
   if (
@@ -38,10 +38,10 @@ function getAllRegisterGlucose(req, res) {
         return res.status(200).send(registers);
       })
       .catch((err) => {
-        return res.status(500).send({ message: `Error al ingresar: ${err}` });
+        return res.status(500).json({ message: `Error al ingresar: ${err}` });
       });
   } else {
-    res.status(400).send({ message: `Falta el parametro id_paciente` });
+    res.status(400).json({ message: `Falta el parametro id_paciente` });
   }
 }
 
