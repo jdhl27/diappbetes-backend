@@ -2,15 +2,14 @@ const User = require("../models/user");
 const Glucose = require("../models/glucose");
 const service = require("../services");
 
-function signUp(req, res) {
+async function signUp(req, res) {
   let id_medico = null;
   if (!req.body.isMedical) {
-    User.find({ isMedical: true }).then((users) => {
-      if (users.length > 0) {
-        const num = Math.floor(Math.random() * users.length);
-        id_medico = users[num]._id;
-      }
-    });
+    const users = await User.find({ isMedical: true });
+    if (users.length > 0) {
+      const num = Math.floor(Math.random() * users.length);
+      id_medico = users[num]._id;
+    }
   }
 
   const user = new User({
