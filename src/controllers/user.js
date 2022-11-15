@@ -18,6 +18,7 @@ async function signUp(req, res) {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phone: req.body.phone,
+    signupDate: req.body.signupDate,
     password: req.body.password,
     isMedical: req.body.isMedical,
     id_medico: id_medico,
