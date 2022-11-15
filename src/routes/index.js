@@ -13,6 +13,8 @@ api.get("/", function (req, res) {
 api.post("/signup", userControl.signUp);
 api.post("/signin", userControl.signIn);
 api.get("/user", auth.isAuth, userControl.userInfo);
+api.get("/userId", auth.isAuth, userControl.userInfoId);
+api.get("/patients", auth.isAuth, userControl.listPatients);
 
 // Glucose
 api.post("/glucose", auth.isAuth, glucoseControl.createRegisterGlucose);
